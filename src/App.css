@@ -417,6 +417,12 @@
   margin-bottom: 1rem;
   color: #374151;
 }
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {

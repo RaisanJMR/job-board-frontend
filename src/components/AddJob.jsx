@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
-import axios from 'axios';
+import { addJob } from '../api/api';
 
 const AddJob = () => {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ const AddJob = () => {
 
     try {
       setLoading(true);
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/job`, newJob);
+      await addJob(newJob);
       navigate('/');
     } catch (error) {
       console.error('Failed to add job:', error.response?.data || error.message);
