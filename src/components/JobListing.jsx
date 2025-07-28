@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiPlus } from 'react-icons/fi';
 import JobCard from './JobCard';
-import axios from 'axios';
+import { fetchJob } from '../api/api'; 
 
 const JobListing = () => {
   const [jobs, setJobs] = useState([]);
@@ -16,12 +16,8 @@ const JobListing = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/job`, {
-          params: {
-            search: searchTerm
-          }
-        });
-        setJobs(response.data);
+        const data = await fetchJob(searchTerm);
+        setJobs(data);
       } catch (err) {
         console.error('Error fetching jobs:', err);
         setError('Failed to fetch job listings. Please try again later.');
@@ -65,7 +61,7 @@ const JobListing = () => {
       )}
 
       {loading ? (
-        <div className="loading">Loading jobs...</div>
+        <h1>Loading jobs...</h1>
       ) : !error && jobs.length === 0 ? (
         <div className="no-results">
           <p>No jobs found matching your search.</p>

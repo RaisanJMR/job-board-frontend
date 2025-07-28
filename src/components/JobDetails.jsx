@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FiArrowLeft, FiMapPin, FiCalendar, FiUser, FiBriefcase } from 'react-icons/fi';
-import axios from 'axios';
+import { fetchSingleJob } from '../api/api';
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -22,8 +22,8 @@ const JobDetails = () => {
     const fetchJob = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/job/${id}`);
-        setJob(response.data);
+        const data = await fetchSingleJob(id);
+        setJob(data);
       } catch (err) {
         console.error(err);
         setError('Job not found or an error occurred while fetching.');
